@@ -1532,20 +1532,17 @@
         
           <!-- Tab panes -->
           <div class="tab-content">
-            <div role="tabpanel" class="tab-pane fade in active" id="contact-us">
-              
-              contact-us
-
-            
-            </div>
-            <div role="tabpanel" class="tab-pane fade " id="register">
-
-              register
-
-              <div class="form-group row">
-                <div class="col-md-6 mb-3 mb-lg-0">
-                  <input type="text" class="form-control" placeholder="First name">
+           <div role ="tabpanel" class="tab-pane active" id="contact-us">
+            <form id = "contact-form" method="post" target="http://localhost:3000/api/contact"
+            <div class = "from-group row">
+              <div class = "col-md-6 mb-3 mb-lg-0">
+                <input type="text" id="fname" name="fname" class="form-control" placeholder="First name">
                 </div>
+              </div>
+            </div>
+           </div>
+             
+                  
                 <div class="col-md-6">
                   <input type="text" class="form-control" placeholder="Last name">
                 </div>
@@ -1559,7 +1556,7 @@
 
               <div class="form-group row">
                 <div class="col-md-12">
-                  <select id="subject-list" class="form-control">
+                  <select id="subject-list" name = "subjec" class="form-control">
                     <option value="">Subject</option>
                   </select>
                 </div>
@@ -1576,7 +1573,7 @@
               <div class="form-group row">
                 <div class="col-md-6">
     
-                  <input type="submit" class="btn btn-primary py-3 px-5 btn-block" value="Send Message">
+                  <input type="submit" onclick= "contactSubmit()" class="btn btn-primary py-3 px-5 btn-block" value="Send Message">
                 </div>
               </div>
             </div>
@@ -1749,12 +1746,11 @@
   <script src="js/main.js"></script>
 
   <script>
-    loadDoc("./xml/class_sunday.xml", classXML);
-
-    loadDoc("./json/class_sunday.json", classJSON);
-
-    loadSubject("./json/contact_subject.json");
-
+    //loadDoc ("./xml/class_sunday.xml", classXML);
+    //loadDoc("./json/class_sunday.json", classJSON);
+    //loadSubject ("./json/contact_subject.json");
+   
+    
     function loadDoc(url, cFunction) {
       const xhttp = new XMLHttpRequest();
       xhttp.onload = function() {cFunction(this);}
@@ -1833,11 +1829,20 @@
 
       });
     }
-
-    window.onload = function(){
-
       const contact = document.getElementById("contact-head");
       contact.innerHTML = "MEDHEE";
+    window.onload = function(){
+      loadDoc("./xml/class_sunday.xml", classXML);
+
+      loadDoc("./json/class_sunday.json", classJSON);
+
+      //loadSubject("./json/contact_subject.json");
+      loadSubject("http://localhost:5000/");
+
+
+
+
+      
     };
   </script>
 </body>
