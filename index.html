@@ -1621,30 +1621,39 @@
 
               <div class="form-group row">
                 <div class="col-md-12">
-                  <input type="email" class="form-control" placeholder="Email">
-                </div>
-              </div>
-
-              <div class="form-group row">
-                <div class="col-md-12">
-                  <select id="subject-list" class="form-control">
-                    <option value="">Subject</option>
+                  <select id="occupationCategory" class="form-control">
+                    <option value="">Occupation Category</option>
                   </select>
                 </div>
               </div>
 
-
-              <div class="form-group row">
+                          <div class="form-group row">
                 <div class="col-md-12">
-                  <textarea class="form-control" id="" cols="30" rows="10"
-                    placeholder="Write your message here."></textarea>
+                  <select id="Occupation" class="form-control">
+                    <option value="">Occupation</option>
+                  </select>
                 </div>
               </div>
 
               <div class="form-group row">
+                <div class="col-md-12">
+                  <input type="email" class="form-control" placeholder="Email">
+                </div>
+              </div>
+
+                          <div class="form-group row">
+                <div class="col-md-12">
+                  <input type="password" class="form-control" placeholder="Password">
+                </div>
+              </div>
+
+
+              
+
+              <div class="form-group row">
                 <div class="col-md-6">
 
-                  <input type="submit" class="btn btn-primary py-3 px-5 btn-block" value="Send Message">
+                  <input type="submit" class="btn btn-primary py-3 px-5 btn-block" value="Register">
                 </div>
               </div>
             </div>
@@ -1954,15 +1963,33 @@
               });
             }
 
+            function loadOccupation(url) {
+              fetch(url)
+                .then(response => response.json())
+                .then(data => OccupationList(data));
+            }
+
+            function OccupationList(data) {
+              const select = document.getElementById("occupationCategory");
+              data.occupationCategories.forEach(job => {
+                console.log(job);
+                const option = document.createElement("option");
+                option.textContent = job;
+                option.value = job;
+                select.appendChild(option);
+              });
+            }
+
             const contact = document.getElementById("contact-head");
-            contact.innerHTML = "MEDHEE";
+            contact.innerHTML = "CHOMPU";
             window.onload = function () {
               loadDoc("./xml/class_sunday.xml", classXML);
 
               loadDoc("./json/class_sunday.json", classJSON);
 
-              //loadSubject("./json/contact_subject.json");
-              loadSubject("http://localhost:3000/api/subject");
+              loadSubject("./json/contact_subject.json");
+              //loadSubject("http://localhost:3000/api/subject");
+              loadOccupation("./json/occupation-cat.json")
             };
 
             //AJAX function 
@@ -2004,23 +2031,25 @@
             //ajax(2);
 
             document.getElementById('Subscribe-form').addEventListener('submit', async (e) => {
-            // document.getElementById('subscribe-form').addEventListener('submit', async (e) => {
-              e.preventDefault();// not refresh page
-
-              let SubscribeData = {
-                email: document.getElementById('subscribe-email').value
-              };
-
-              const response = await fetch('http://localhost:3000/api/subscribe', {
-                metthod: 'POST',
-                headers: { 'Conent-Type': 'application/json' },
-                body: JSON.stringify(SubscribeData)
+              // document.getElementById('subscribe-form').addEventListener('submit', async (e) => {
+              e.preventDefault();
+              let subscribeData = {
+                email: document.getElementById("subscribe-email").value
+              }
+              
+              const response = await fetch("http://localhost:3000/api/subscribe", {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json"
+                },
+                body: JSON.stringify(subscribeData)
               });
+
               console.log(response);
               let result = await response.json();
-              console.log(result.message)
-
+              console.log(result.message);
             })
+            
           </script>
 </body>
 
